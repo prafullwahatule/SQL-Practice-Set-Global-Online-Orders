@@ -12,7 +12,7 @@
 -- =====================================================================
 
 CREATE TABLE customers (
-    CustomerID INT PRIMARY KEY,
+    CustomerID INT PRIMARY KEY AUTO_INCREMENT,
     CustomerName VARCHAR(150),
     ContactName VARCHAR(150),
     Address VARCHAR(255),

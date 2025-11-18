@@ -8,7 +8,7 @@
 -- ===========================================================
 
 CREATE TABLE categories (
-    CategoryID INT PRIMARY KEY,
+    CategoryID INT PRIMARY KEY AUTO_INCREMENT,
     CategoryName VARCHAR(100),
     DescriptionText VARCHAR(255)
 );

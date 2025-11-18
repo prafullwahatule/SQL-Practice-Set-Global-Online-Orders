@@ -4,7 +4,7 @@
 -- ===========================================================
 
 CREATE TABLE order_details (
-    OrderDetailID INT PRIMARY KEY,
+    OrderDetailID INT PRIMARY KEY AUTO_INCREMENT,
     OrderID INT NOT NULL,
     ProductID INT NOT NULL,
     Quantity INT NOT NULL,

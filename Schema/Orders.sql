@@ -4,7 +4,7 @@
 -- ===========================================================
 
 CREATE TABLE orders (
-    OrderID INT PRIMARY KEY,
+    OrderID INT PRIMARY KEY AUTO_INCREMENT,
     CustomerID INT NOT NULL,
     EmployeeID INT NOT NULL,
     OrderDate DATE NOT NULL,

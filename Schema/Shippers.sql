@@ -4,7 +4,7 @@
 -- ===========================================================
 
 CREATE TABLE shippers (
-    ShipperID INT PRIMARY KEY,
+    ShipperID INT PRIMARY KEY AUTO_INCREMENT,
     ShipperName VARCHAR(100) NOT NULL,
     Phone VARCHAR(50)
 );

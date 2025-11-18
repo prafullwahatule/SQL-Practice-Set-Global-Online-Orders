@@ -4,7 +4,7 @@
 -- ===========================================================
 
 CREATE TABLE suppliers (
-    SupplierID INT PRIMARY KEY,
+    SupplierID INT PRIMARY KEY AUTO_INCREMENT,
     SupplierName VARCHAR(150) NOT NULL,
     ContactName VARCHAR(100),
     Address VARCHAR(255),

@@ -3,11 +3,10 @@
 -- Purpose: Stores product master data
 -- ===========================================================
 CREATE TABLE products (
-    ProductID INT PRIMARY KEY,
+    ProductID INT PRIMARY KEY AUTO_INCREMENT,
     ProductName VARCHAR(100) NOT NULL,
     SupplierID INT NOT NULL,
     CategoryID INT NOT NULL,
-    ShipperID INT,
     QuantityPerUnit VARCHAR(50),
     UnitPrice DECIMAL(10,2),
     UnitsInStock INT,
@@ -15,8 +14,7 @@ CREATE TABLE products (
     ReorderLevel INT,
     Discontinued TINYINT DEFAULT 0,
     FOREIGN KEY (CategoryID) REFERENCES categories(CategoryID),
-    FOREIGN KEY (SupplierID) REFERENCES suppliers(SupplierID),
-    FOREIGN KEY (ShipperID) REFERENCES shippers(ShipperID)
+    FOREIGN KEY (SupplierID) REFERENCES suppliers(SupplierID)
 );
 
 -- ===========================================================
