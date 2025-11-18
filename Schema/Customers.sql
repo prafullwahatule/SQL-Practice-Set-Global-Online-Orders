@@ -12,13 +12,13 @@
 -- =====================================================================
 
 CREATE TABLE customers (
-    CustomerID INT PRIMARY KEY,                -- Unique Customer ID
-    CustomerName VARCHAR(150),                 -- Company / Customer name
-    ContactName VARCHAR(150),                  -- Contact person name
-    Address VARCHAR(255),                      -- Street address
-    City VARCHAR(100),                         -- City
-    PostalCode VARCHAR(20),                    -- Postal / ZIP code
-    Country VARCHAR(100)                       -- Country
+    CustomerID INT PRIMARY KEY,
+    CustomerName VARCHAR(150),
+    ContactName VARCHAR(150),
+    Address VARCHAR(255),
+    City VARCHAR(100),
+    PostalCode VARCHAR(20),
+    Country VARCHAR(100)
 );
 
 

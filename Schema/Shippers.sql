@@ -4,11 +4,10 @@
 -- ===========================================================
 
 CREATE TABLE shippers (
-    ShipperID INT PRIMARY KEY,             -- Unique shipper ID
-    ShipperName VARCHAR(100) NOT NULL,     -- Shipper company name
-    Phone VARCHAR(50)                      -- Contact number
+    ShipperID INT PRIMARY KEY,
+    ShipperName VARCHAR(100) NOT NULL,
+    Phone VARCHAR(50)
 );
-
 -- ===========================================================
 -- INSERT SHIPPER DATA (1–3)
 -- ===========================================================

@@ -8,9 +8,9 @@
 -- ===========================================================
 
 CREATE TABLE categories (
-    CategoryID INT PRIMARY KEY,                -- Unique category ID
-    CategoryName VARCHAR(100),                 -- Category name
-    DescriptionText VARCHAR(255)               -- Description about category
+    CategoryID INT PRIMARY KEY,
+    CategoryName VARCHAR(100),
+    DescriptionText VARCHAR(255)
 );
 
 -- ===========================================================

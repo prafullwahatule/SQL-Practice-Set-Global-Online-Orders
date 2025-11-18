@@ -4,10 +4,10 @@
 -- Note: Photo & Notes columns removed as requested
 -- ===========================================================
 CREATE TABLE employees (
-    EmployeeID INT PRIMARY KEY,                -- Unique employee ID
-    LastName VARCHAR(100) NOT NULL,            -- Employee last name
-    FirstName VARCHAR(100) NOT NULL,           -- Employee first name
-    BirthDate DATE                             -- Employee birth date
+    EmployeeID INT PRIMARY KEY,
+    LastName VARCHAR(100) NOT NULL,
+    FirstName VARCHAR(100) NOT NULL,
+    BirthDate DATE
 );
 
 -- ===========================================================

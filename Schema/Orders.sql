@@ -4,11 +4,11 @@
 -- ===========================================================
 
 CREATE TABLE orders (
-    OrderID INT PRIMARY KEY,            -- Unique order ID
-    CustomerID INT NOT NULL,            -- Customer reference
-    EmployeeID INT NOT NULL,            -- Employee who handled the order
-    OrderDate DATE NOT NULL,            -- Date order was placed
-    ShipperID INT NOT NULL,              -- Shipping company reference
+    OrderID INT PRIMARY KEY,
+    CustomerID INT NOT NULL,
+    EmployeeID INT NOT NULL,
+    OrderDate DATE NOT NULL,
+    ShipperID INT NOT NULL,
     FOREIGN KEY (CustomerID) REFERENCES customers(CustomerID),
     FOREIGN KEY (EmployeeID) REFERENCES employees(EmployeeID),
     FOREIGN KEY (ShipperID) REFERENCES shippers(ShipperID)

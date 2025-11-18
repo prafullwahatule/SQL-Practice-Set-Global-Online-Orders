@@ -4,14 +4,14 @@
 -- ===========================================================
 
 CREATE TABLE suppliers (
-    SupplierID INT PRIMARY KEY,              -- Unique supplier ID
-    SuppliersName VARCHAR(150) NOT NULL,     -- Supplier company name
-    ContactName VARCHAR(100),                -- Contact person
-    Address VARCHAR(255),                    -- Street address
-    City VARCHAR(100),                       -- City name
-    PostalCode VARCHAR(20),                  -- ZIP / postal code
-    Country VARCHAR(100),                    -- Country
-    Phone VARCHAR(50)                        -- Contact phone number
+    SupplierID INT PRIMARY KEY,
+    SupplierName VARCHAR(150) NOT NULL,
+    ContactName VARCHAR(100),
+    Address VARCHAR(255),
+    City VARCHAR(100),
+    PostalCode VARCHAR(20),
+    Country VARCHAR(100),
+    Phone VARCHAR(50)
 );
 
 -- ===========================================================
@@ -19,7 +19,7 @@ CREATE TABLE suppliers (
 -- ===========================================================
 
 INSERT INTO suppliers 
-(SupplierID, SuppliersName, ContactName, Address, City, PostalCode, Country, Phone) VALUES
+(SupplierID, SupplierName, ContactName, Address, City, PostalCode, Country, Phone) VALUES
 (1,'Exotic Liquid','Charlotte Cooper','49 Gilbert St.','Londona','EC1 4SD','UK','(171) 555-2222'),
 (2,'New Orleans Cajun Delights','Shelley Burke','P.O. Box 78934','New Orleans','70117','USA','(100) 555-4822'),
 (3,'Grandma Kellys Homestead','Regina Murphy','707 Oxford Rd.','Ann Arbor','48104','USA','(313) 555-5735'),
