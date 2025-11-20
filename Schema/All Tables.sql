@@ -39,7 +39,7 @@ CREATE TABLE products (
     ReorderLevel INT,                     -- Stock level at which reordering is needed
     Discontinued TINYINT DEFAULT 0,      -- Flag to indicate if the product is discontinued (0 = active)
     FOREIGN KEY (CategoryID) REFERENCES categories(CategoryID),
-    FOREIGN KEY (SupplierID) REFERENCES suppliers(SupplierID),
+    FOREIGN KEY (SupplierID) REFERENCES suppliers(SupplierID)
 );
 
 -- ===========================================================
