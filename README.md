@@ -150,8 +150,8 @@ The objectives of this practice set include:
 1. Install **MySQL** or **MySQL Workbench**.  
 2. Create a new database:
 ```sql
-CREATE DATABASE GlobalOrdersDB;
-USE GlobalOrdersDB;
+CREATE DATABASE global_online_orders;
+USE global_online_orders;
 ```
 3. Create tables and insert data using the provided SQL scripts.
 4. Start practicing SQL queries across various topics.
