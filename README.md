@@ -141,6 +141,84 @@ The objectives of this practice set include:
 
 ---
 EER Diagram:
+```mermaid
+erDiagram
+    CATEGORIES ||--o{ PRODUCTS : contains
+    SUPPLIERS ||--o{ PRODUCTS : supplies
+    PRODUCTS ||--o{ ORDER_DETAILS : included_in
+    ORDERS ||--o{ ORDER_DETAILS : has
+    CUSTOMERS ||--o{ ORDERS : places
+    EMPLOYEES ||--o{ ORDERS : processes
+    SHIPPERS ||--o{ ORDERS : ships
+
+    CATEGORIES {
+        int CategoryID PK
+        string CategoryName
+        string DescriptionText
+    }
+
+    PRODUCTS {
+        int ProductID PK
+        string ProductName
+        int SupplierID FK
+        int CategoryID FK
+        string QuantityPerUnit
+        decimal UnitPrice
+        int UnitsInStock
+        int UnitsOnOrder
+        int ReorderLevel
+        tinyint Discontinued
+    }
+
+    SUPPLIERS {
+        int SupplierID PK
+        string SupplierName
+        string ContactName
+        string Address
+        string City
+        string PostalCode
+        string Country
+        string Phone
+    }
+
+    ORDER_DETAILS {
+        int OrderDetailID PK
+        int OrderID FK
+        int ProductID FK
+        int Quantity
+    }
+
+    ORDERS {
+        int OrderID PK
+        int CustomerID FK
+        int EmployeeID FK
+        int ShipperID FK
+        date OrderDate
+    }
+
+    CUSTOMERS {
+        int CustomerID PK
+        string CustomerName
+        string ContactName
+        string Address
+        string City
+        string PostalCode
+        string Country
+    }
+
+    EMPLOYEES {
+        int EmployeeID PK
+        string LastName
+        string FirstName
+        date BirthDate
+    }
+
+    SHIPPERS {
+        int ShipperID PK
+        string ShipperName
+        string Phone
+    }
+
 <img width="1191" height="872" alt="ERR Diagram" src="https://github.com/user-attachments/assets/1786490e-c468-4a79-a35e-7efd3cb23182" />
 
 ---
@@ -179,8 +257,8 @@ USE GlobalOrdersDB;
 
 ## 🙏 Acknowledgement  
 
-Special thanks to the **Retail Sales Sharing Dataset (Open Data)** for providing an excellent real-world dataset.  
-This project was created as part of a **Data Analytics learning journey** using **Power BI**.  
+Special thanks to the **Global Online Sales** for providing an excellent real-world dataset.  
+This project was created as part of a **Data Analytics learning journey** using **MySQL**.  
 
 ---
 
