@@ -151,28 +151,22 @@ USE GlobalOrdersDB;
 3. Create tables and insert data using the provided SQL scripts.
 4. Start practicing SQL queries across various topics.
 
+---
 
 ## 💡 Recommended Usage
 
-Start with Filtering & Logical Operations to understand basic query syntax.
+- Start with **Filtering & Logical Operations** to understand basic query syntax.
+- Move to **Aggregations** to summarize and analyze data.
+- Practice **Joins** and **Subqueries** to combine tables and answer complex business questions.
+- Explore **Window Functions** for analytics and reporting scenarios.
+- Use **String & Data Cleaning Functions** to manipulate text and ensure data quality.
+- Implement **Views, Indexes, Temporary & Derived Tables** to optimize query performance.
+- Practice **Stored Procedures** for automation and modular SQL design.
 
-Move to Aggregations to summarize and analyze data.
-
-Practice Joins and Subqueries to combine tables and answer complex business questions.
-
-Explore Window Functions for analytics and reporting scenarios.
-
-Use String & Data Cleaning Functions to manipulate text and ensure data quality.
-
-Implement Views, Indexes, Temporary & Derived Tables to optimize query performance.
-
-Practice Stored Procedures for automation and modular SQL design.
-
+---
 
 ## ✅ Notes
 
-This practice set contains 2160 scenario-based questions covering all essential SQL concepts.
-
-The database is pre-populated with realistic data for customers, products, orders, suppliers, and categories.
-
-It can be used for interview preparation, assignments, or self-learning projects.
+- This practice set contains **2160 scenario-based questions** covering all essential SQL concepts.
+- The database is **pre-populated with realistic data** for customers, products, orders, suppliers, and categories.
+- It can be used for **interview preparation, assignments, or self-learning projects**.
