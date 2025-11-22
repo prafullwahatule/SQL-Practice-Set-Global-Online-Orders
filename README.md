@@ -144,7 +144,7 @@ The objectives of this practice set include:
 ## 🔧 Setup Instructions
 1. Install **MySQL** or **MySQL Workbench**.  
 2. Create a new database:  
-csql
+```sql
 CREATE DATABASE GlobalOrdersDB;
 USE GlobalOrdersDB;
 ```
