@@ -140,6 +140,10 @@ The objectives of this practice set include:
 | Quantity      | INT      | Number of products |
 
 ---
+EER Diagram:
+<img width="1191" height="872" alt="ERR Diagram" src="https://github.com/user-attachments/assets/1786490e-c468-4a79-a35e-7efd3cb23182" />
+
+---
 
 ## 🔧 Setup Instructions
 1. Install **MySQL** or **MySQL Workbench**.  
@@ -170,3 +174,22 @@ USE GlobalOrdersDB;
 - This practice set contains **2160 scenario-based questions** covering all essential SQL concepts.
 - The database is **pre-populated with realistic data** for customers, products, orders, suppliers, and categories.
 - It can be used for **interview preparation, assignments, or self-learning projects**.
+
+---
+
+## 🙏 Acknowledgement  
+
+Special thanks to the **Retail Sales Sharing Dataset (Open Data)** for providing an excellent real-world dataset.  
+This project was created as part of a **Data Analytics learning journey** using **Power BI**.  
+
+---
+
+## 📎 Author  
+
+**👤 Name:** Prafull Wahatule  
+**📧 Email:** [prafullwahatule@gmail.com](mailto:prafullwahatule@gmail.com)  
+**💻 GitHub:** [prafullwahatule](https://github.com/prafullwahatule)  
+
+---
+
+⭐ *If you found this project helpful, don’t forget to star the repository!* ⭐
