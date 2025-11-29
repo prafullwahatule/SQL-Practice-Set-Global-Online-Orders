@@ -4,7 +4,7 @@
 -- =============================================
 
 -- 1. Find the average UnitPrice of all products
-
+hello
 -- 2. Calculate the average UnitsInStock of all products
 
 -- 3. Find the average UnitsOnOrder for all products
