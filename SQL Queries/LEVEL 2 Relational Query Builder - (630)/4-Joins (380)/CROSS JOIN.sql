@@ -4,34 +4,111 @@
 -- =============================================
 
 -- 1. List all combinations of customers and products
+SELECT
+    c.CustomerID,
+    p.ProductID
+FROM customers c
+CROSS JOIN products p;
 
 -- 2. Show all combinations of employees and products
+SELECT
+    e.EmployeeID,
+    p.ProductID
+FROM employees e
+CROSS JOIN products p;
 
 -- 3. List all combinations of orders and products
+SELECT
+    o.OrderID,
+    p.ProductID
+FROM orders o
+CROSS JOIN products p;
 
 -- 4. Show all combinations of categories and suppliers
-
+SELECT
+    c.CategoryID,
+    s.SupplierID
+FROM categories c
+CROSS JOIN suppliers s;
+    
 -- 5. List all combinations of products and suppliers
+SELECT
+    p.ProductID,
+    s.SupplierID
+FROM products p
+CROSS JOIN suppliers s;
 
 -- 6. Show all combinations of customers and shippers
+SELECT
+    c.CustomerID,
+    s.ShipperID
+FROM customers c
+CROSS JOIN shippers s;
 
 -- 7. List all combinations of orders and shippers
+SELECT
+    o.OrderID,
+    s.ShipperID
+FROM orders o
+CROSS JOIN shippers s;
 
 -- 8. Show all combinations of employees and customers
+SELECT
+    e.EmployeeID,
+    c.CustomerID
+FROM employees e
+CROSS JOIN customers c;
 
 -- 9. List all combinations of categories and products
+SELECT
+    c.CategoryID,
+    p.ProductID
+FROM categories c
+CROSS JOIN products p;
 
 -- 10. Show all combinations of products and orders
+SELECT
+    p.ProductID,
+    o.OrderID
+FROM products p
+CROSS JOIN orders o;
 
 -- 11. List all combinations of customers and order_details
+SELECT
+    c.CustomerID,
+    od.OrderID,
+    od.ProductID
+FROM customers c
+CROSS JOIN order_details od;
 
 -- 12. Show all combinations of employees and shippers
+SELECT
+    e.EmployeeID,
+    s.ShipperID
+FROM employees e
+CROSS JOIN shippers s;
 
 -- 13. List all combinations of suppliers and orders
+SELECT
+    s.SupplierID,
+    o.OrderID
+FROM suppliers s
+CROSS JOIN orders o;
 
 -- 14. Show all combinations of products and order_details
+SELECT
+    p.ProductID,
+    od.OrderID,
+    od.Quantity
+FROM products p
+CROSS JOIN order_details od;
 
 -- 15. List all combinations of categories and shippers
+SELECT
+    c.CategoryID,
+    s.ShipperID
+FROM categories c
+CROSS JOIN shippers s;
 
 -- 16. Show all combinations of employees and categories
 
