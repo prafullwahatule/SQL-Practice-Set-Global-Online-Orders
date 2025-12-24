@@ -4,6 +4,13 @@
 -- =============================================
 
 -- 1. List all orders along with customer names
+SELECT
+    o.OrderID,
+    c.CustomerID,
+    c.ContactName
+FROM customers c
+INNER JOIN orders o
+    ON c.CustomerID = o.CustomerID;
 
 -- 2. Retrieve order details with product names
 
