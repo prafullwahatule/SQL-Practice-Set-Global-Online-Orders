@@ -231,51 +231,240 @@ INNER JOIN categories cat ON p.CategoryID = cat.CategoryID
 WHERE cat.CategoryName = 'Beverages';
 
 -- 26. Show all orders with order_details where quantity > 15
+SELECT
+    o.OrderID,
+    od.Quantity
+FROM orders o
+INNER JOIN order_details od
+    ON o.OrderID = od.OrderID
+WHERE od.Quantity > 15;
 
 -- 27. Retrieve products with suppliers and reorder levels
+SELECT
+    p.ProductName,
+    s.SupplierName,
+    p.ReorderLevel
+FROM products p
+INNER JOIN suppliers s
+    ON p.SupplierID = s.SupplierID;
 
 -- 28. List employees and orders for which they were responsible
+SELECT
+    e.EmployeeID,
+    o.OrderID
+FROM employees e
+INNER JOIN orders o
+    ON e.EmployeeID = o.EmployeeID;
 
 -- 29. Show customers along with orders and total quantity ordered
+SELECT
+    c.ContactName,
+    SUM(od.Quantity) AS TotalQuantity
+FROM customers c
+INNER JOIN orders o ON c.CustomerID = o.CustomerID
+INNER JOIN order_details od ON o.OrderID = od.OrderID
+GROUP BY c.ContactName;
 
 -- 30. Find suppliers who provide products with UnitPrice > 20
+SELECT DISTINCT
+    s.SupplierName
+FROM suppliers s
+INNER JOIN products p
+    ON s.SupplierID = p.SupplierID
+WHERE p.UnitPrice > 20;
 
 -- 31. List order_details with orders placed by EmployeeID = 4
+SELECT
+    od.*
+FROM orders o
+INNER JOIN order_details od
+    ON o.OrderID = od.OrderID
+WHERE o.EmployeeID = 4;
 
 -- 32. Retrieve products and suppliers where products are discontinued
+SELECT
+    p.ProductName,
+    s.SupplierName
+FROM products p
+INNER JOIN suppliers s
+    ON p.SupplierID = s.SupplierID
+WHERE p.Discontinued = 1;
 
 -- 33. Show orders and order_details with product info where quantity < 10
+SELECT
+    o.OrderID,
+    p.ProductName,
+    od.Quantity
+FROM orders o
+INNER JOIN order_details od ON o.OrderID = od.OrderID
+INNER JOIN products p ON od.ProductID = p.ProductID
+WHERE od.Quantity < 10;
 
 -- 34. Find customers and products they ordered in CategoryID = 2
+SELECT DISTINCT
+    c.ContactName,
+    p.ProductName
+FROM customers c
+INNER JOIN orders o ON c.CustomerID = o.CustomerID
+INNER JOIN order_details od ON o.OrderID = od.OrderID
+INNER JOIN products p ON od.ProductID = p.ProductID
+WHERE p.CategoryID = 2;
 
 -- 35. List orders and employee names who handled them and the shipper used
+SELECT
+    o.OrderID,
+    CONCAT(e.FirstName, ' ', e.LastName) AS EmployeeName,
+    s.ShipperName
+FROM orders o
+INNER JOIN employees e ON o.EmployeeID = e.EmployeeID
+INNER JOIN shippers s ON o.ShipperID = s.ShipperID;
 
 -- 36. Retrieve products with category and supplier info for UnitsInStock > 30
+SELECT
+    p.ProductName,
+    c.CategoryName,
+    s.SupplierName
+FROM products p
+INNER JOIN categories c ON p.CategoryID = c.CategoryID
+INNER JOIN suppliers s ON p.SupplierID = s.SupplierID
+WHERE p.UnitsInStock > 30;
 
 -- 37. Show orders along with total quantity per order
+SELECT
+    o.OrderID,
+    SUM(od.Quantity) AS TotalQuantity
+FROM orders o
+INNER JOIN order_details od
+    ON o.OrderID = od.OrderID
+GROUP BY o.OrderID;
 
 -- 38. Find employees and the customers they served
+SELECT DISTINCT
+    CONCAT(e.FirstName, ' ', e.LastName) AS EmployeeName,
+    c.ContactName
+FROM employees e
+INNER JOIN orders o ON e.EmployeeID = o.EmployeeID
+INNER JOIN customers c ON o.CustomerID = c.CustomerID;
 
 -- 39. List order_details and product names for orders shipped by ShipperID = 1
+SELECT
+    od.OrderID,
+    p.ProductName,
+    od.Quantity
+FROM orders o
+INNER JOIN order_details od ON o.OrderID = od.OrderID
+INNER JOIN products p ON od.ProductID = p.ProductID
+WHERE o.ShipperID = 1;
 
 -- 40. Retrieve categories and the products supplied under each category
+SELECT
+    c.CategoryName,
+    p.ProductName
+FROM categories c
+INNER JOIN products p
+    ON c.CategoryID = p.CategoryID;
 
 -- 41. Show orders and corresponding order_details with product UnitPrice
+SELECT
+    o.OrderID,
+    p.ProductName,
+    p.UnitPrice,
+    od.Quantity
+FROM orders o
+INNER JOIN order_details od ON o.OrderID = od.OrderID
+INNER JOIN products p ON od.ProductID = p.ProductID;
 
 -- 42. Find suppliers and products where UnitsOnOrder > 0
+SELECT
+    s.SupplierName,
+    p.ProductName,
+    p.UnitsOnOrder
+FROM suppliers s
+INNER JOIN products p
+    ON s.SupplierID = p.SupplierID
+WHERE p.UnitsOnOrder > 0;
 
 -- 43. List customers and total distinct products they ordered
+SELECT
+    c.ContactName,
+    COUNT(DISTINCT od.ProductID) AS DistinctProducts
+FROM customers c
+INNER JOIN orders o ON c.CustomerID = o.CustomerID
+INNER JOIN order_details od ON o.OrderID = od.OrderID
+GROUP BY c.ContactName;
 
 -- 44. Retrieve employees and orders where the total quantity exceeds 20
+SELECT
+    e.EmployeeID,
+    o.OrderID,
+    SUM(od.Quantity) AS TotalQuantity
+FROM employees e
+INNER JOIN orders o ON e.EmployeeID = o.EmployeeID
+INNER JOIN order_details od ON o.OrderID = od.OrderID
+GROUP BY e.EmployeeID, o.OrderID
+HAVING SUM(od.Quantity) > 20;
 
 -- 45. Show products, suppliers, and categories where UnitPrice > 15
+SELECT
+    p.ProductName,
+    s.SupplierName,
+    c.CategoryName,
+    p.UnitPrice
+FROM products p
+INNER JOIN suppliers s ON p.SupplierID = s.SupplierID
+INNER JOIN categories c ON p.CategoryID = c.CategoryID
+WHERE p.UnitPrice > 15;
 
 -- 46. Find orders along with order_details for products supplied by SupplierID = 5
+SELECT
+    o.OrderID,
+    p.ProductName,
+    od.Quantity
+FROM orders o
+INNER JOIN order_details od ON o.OrderID = od.OrderID
+INNER JOIN products p ON od.ProductID = p.ProductID
+WHERE p.SupplierID = 5;
 
 -- 47. List customers and orders along with shipper names in July 1996
+SELECT
+    c.ContactName,
+    o.OrderID,
+    s.ShipperName,
+    o.OrderDate
+FROM customers c
+INNER JOIN orders o ON c.CustomerID = o.CustomerID
+INNER JOIN shippers s ON o.ShipperID = s.ShipperID
+WHERE o.OrderDate BETWEEN '1996-07-01' AND '1996-07-31';
 
 -- 48. Retrieve products with category names and reorder levels less than 10
+SELECT
+    p.ProductName,
+    c.CategoryName,
+    p.ReorderLevel
+FROM products p
+INNER JOIN categories c ON p.CategoryID = c.CategoryID
+WHERE p.ReorderLevel < 10;
 
 -- 49. Show orders with employee names and products ordered with quantity > 5
+SELECT
+    o.OrderID,
+    CONCAT(e.FirstName, ' ', e.LastName) AS EmployeeName,
+    p.ProductName,
+    od.Quantity
+FROM orders o
+INNER JOIN employees e ON o.EmployeeID = e.EmployeeID
+INNER JOIN order_details od ON o.OrderID = od.OrderID
+INNER JOIN products p ON od.ProductID = p.ProductID
+WHERE od.Quantity > 5;
 
 -- 50. Find suppliers and the total number of products supplied in each category
+SELECT
+    s.SupplierName,
+    c.CategoryName,
+    COUNT(p.ProductID) AS TotalProducts
+FROM suppliers s
+INNER JOIN products p ON s.SupplierID = p.SupplierID
+INNER JOIN categories c ON p.CategoryID = c.CategoryID
+GROUP BY
+    s.SupplierName,
+    c.CategoryName;
