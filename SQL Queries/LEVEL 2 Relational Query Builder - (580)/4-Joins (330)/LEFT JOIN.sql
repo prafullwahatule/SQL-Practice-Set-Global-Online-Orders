@@ -4,54 +4,154 @@
 -- =============================================
 
 -- 1. List all customers and their orders (include customers with no orders)
+SELECT c.CustomerID, c.ContactName, o.OrderID
+FROM customers c
+LEFT JOIN orders o ON c.CustomerID = o.CustomerID;
 
 -- 2. Show all employees and the orders they handled (include employees with no orders)
+SELECT e.EmployeeID, CONCAT(e.FirstName,' ',e.LastName) AS EmployeeName, o.OrderID
+FROM employees e
+LEFT JOIN orders o ON e.EmployeeID = o.EmployeeID;
 
 -- 3. Display all products and their order_details (include products never ordered)
+SELECT p.ProductID, p.ProductName, od.OrderID, od.Quantity
+FROM products p
+LEFT JOIN order_details od ON p.ProductID = od.ProductID;
 
 -- 4. List all categories and products (include categories with no products)
+SELECT c.CategoryName, p.ProductName
+FROM categories c
+LEFT JOIN products p ON c.CategoryID = p.CategoryID;
 
 -- 5. Show all shippers and orders shipped (include shippers with no orders)
+SELECT s.ShipperName, o.OrderID
+FROM shippers s
+LEFT JOIN orders o ON s.ShipperID = o.ShipperID;
 
 -- 6. Retrieve all suppliers and products supplied (include suppliers with no products)
+SELECT s.SupplierName, p.ProductName
+FROM suppliers s
+LEFT JOIN products p ON s.SupplierID = p.SupplierID;
 
 -- 7. Find all customers and orders placed in July 1996 (include customers with no orders)
+SELECT c.ContactName, o.OrderID, o.OrderDate
+FROM customers c
+LEFT JOIN orders o
+ON c.CustomerID = o.CustomerID
+AND o.OrderDate BETWEEN '1996-07-01' AND '1996-07-31';
 
 -- 8. Show all products and category names (include products with no category, if possible)
+SELECT p.ProductName, c.CategoryName
+FROM products p
+LEFT JOIN categories c ON p.CategoryID = c.CategoryID;
 
 -- 9. List all employees and total orders they handled (include employees with zero orders)
+SELECT e.EmployeeID,
+       CONCAT(e.FirstName,' ',e.LastName) AS EmployeeName,
+       COUNT(o.OrderID) AS TotalOrders
+FROM employees e
+LEFT JOIN orders o ON e.EmployeeID = o.EmployeeID
+GROUP BY e.EmployeeID, e.FirstName, e.LastName;
 
 -- 10. Display all orders and order_details (include orders with no details)
+SELECT o.OrderID, od.ProductID, od.Quantity
+FROM orders o
+LEFT JOIN order_details od ON o.OrderID = od.OrderID;
 
 -- 11. Find all categories and products in stock (include categories with no products)
+SELECT c.CategoryName, p.ProductName, p.UnitsInStock
+FROM categories c
+LEFT JOIN products p
+ON c.CategoryID = p.CategoryID AND p.UnitsInStock > 0;
 
 -- 12. Show all suppliers and products with UnitsInStock > 0 (include suppliers with no products)
+SELECT s.SupplierName, p.ProductName, p.UnitsInStock
+FROM suppliers s
+LEFT JOIN products p
+ON s.SupplierID = p.SupplierID AND p.UnitsInStock > 0;
 
 -- 13. List all customers and their shipped orders (include customers with no shipped orders)
+SELECT c.ContactName, o.OrderID, o.ShippedDate
+FROM customers c
+LEFT JOIN orders o
+ON c.CustomerID = o.CustomerID
+AND o.ShippedDate IS NOT NULL;
 
 -- 14. Display all employees and orders with quantity > 10 (include employees with no such orders)
+SELECT e.EmployeeID, o.OrderID, od.Quantity
+FROM employees e
+LEFT JOIN orders o ON e.EmployeeID = o.EmployeeID
+LEFT JOIN order_details od
+ON o.OrderID = od.OrderID AND od.Quantity > 10;
 
 -- 15. Find all products and suppliers (include products with no suppliers, if possible)
+SELECT p.ProductName, s.SupplierName
+FROM products p
+LEFT JOIN suppliers s ON p.SupplierID = s.SupplierID;
 
 -- 16. Show all orders and products in order_details (include orders with no products)
+SELECT o.OrderID, p.ProductName
+FROM orders o
+LEFT JOIN order_details od ON o.OrderID = od.OrderID
+LEFT JOIN products p ON od.ProductID = p.ProductID;
 
--- 17. List all customers and products they ordered from CategoryID = 1 (include customers who ordered none)
+-- 17. List all customers and products they ordered from CategoryID = 1
+SELECT c.ContactName, p.ProductName
+FROM customers c
+LEFT JOIN orders o ON c.CustomerID = o.CustomerID
+LEFT JOIN order_details od ON o.OrderID = od.OrderID
+LEFT JOIN products p
+ON od.ProductID = p.ProductID AND p.CategoryID = 1;
 
 -- 18. Display all shippers and total orders shipped (include shippers with no orders)
+SELECT s.ShipperName, COUNT(o.OrderID) AS TotalOrders
+FROM shippers s
+LEFT JOIN orders o ON s.ShipperID = o.ShipperID
+GROUP BY s.ShipperName;
 
--- 19. Find all suppliers and total units in stock of their products (include suppliers with zero stock)
+-- 19. Find all suppliers and total units in stock of their products
+SELECT s.SupplierName, COALESCE(SUM(p.UnitsInStock),0) AS TotalStock
+FROM suppliers s
+LEFT JOIN products p ON s.SupplierID = p.SupplierID
+GROUP BY s.SupplierName;
 
--- 20. Show all categories and average UnitPrice of products (include categories with no products)
+-- 20. Show all categories and average UnitPrice of products
+SELECT c.CategoryName, AVG(p.UnitPrice) AS AvgUnitPrice
+FROM categories c
+LEFT JOIN products p ON c.CategoryID = p.CategoryID
+GROUP BY c.CategoryName;
 
--- 21. List all employees and orders placed in July 1996 (include employees with no orders)
+-- 21. List all employees and orders placed in July 1996
+SELECT CONCAT(e.FirstName,' ',e.LastName) AS EmployeeName, o.OrderID
+FROM employees e
+LEFT JOIN orders o
+ON e.EmployeeID = o.EmployeeID
+AND o.OrderDate BETWEEN '1996-07-01' AND '1996-07-31';
 
--- 22. Display all customers and total quantity ordered (include customers with no orders)
+-- 22. Display all customers and total quantity ordered
+SELECT c.ContactName, COALESCE(SUM(od.Quantity),0) AS TotalQuantity
+FROM customers c
+LEFT JOIN orders o ON c.CustomerID = o.CustomerID
+LEFT JOIN order_details od ON o.OrderID = od.OrderID
+GROUP BY c.ContactName;
 
--- 23. Find all products and their order_details for quantity > 20 (include products with no matching orders)
+-- 23. Find all products and their order_details for quantity > 20
+SELECT p.ProductName, od.Quantity
+FROM products p
+LEFT JOIN order_details od
+ON p.ProductID = od.ProductID AND od.Quantity > 20;
 
--- 24. Show all suppliers and products with ReorderLevel <= 10 (include suppliers with no products)
+-- 24. Show all suppliers and products with ReorderLevel <= 10
+SELECT s.SupplierName, p.ProductName, p.ReorderLevel
+FROM suppliers s
+LEFT JOIN products p
+ON s.SupplierID = p.SupplierID AND p.ReorderLevel <= 10;
 
--- 25. List all orders and corresponding customer names (include orders with no customer, if possible)
+-- 25. List all orders and corresponding customer names
+SELECT o.OrderID, c.ContactName
+FROM orders o
+LEFT JOIN customers c ON o.CustomerID = c.CustomerID;
+
 
 -- 26. Display all products and suppliers where Discontinued = 0 (include products without suppliers)
 
