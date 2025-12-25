@@ -4,6 +4,16 @@
 -- =============================================
 
 -- 1. Find employees who share the same birth year
+SELECT
+    E1.EmployeeID AS Emp1_ID,
+    E1.FirstName  AS Emp1_Name,
+    E2.EmployeeID AS Emp2_ID,
+    E2.FirstName  AS Emp2_Name,
+    YEAR(E1.BirthDate) AS BirthYear
+FROM employees E1
+JOIN employees E2
+ON YEAR(E1.BirthDate) = YEAR(E2.BirthDate)
+AND E1.EmployeeID <> E2.EmployeeID;
 
 -- 2. List employees whose birth year is earlier than another employee’s birth year
 
