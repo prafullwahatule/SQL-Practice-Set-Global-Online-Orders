@@ -16,10 +16,42 @@ ON YEAR(E1.BirthDate) = YEAR(E2.BirthDate)
 AND E1.EmployeeID <> E2.EmployeeID;
 
 -- 2. List employees whose birth year is earlier than another employee’s birth year
+SELECT DISTINCT
+    E1.EmployeeID AS Emp1_ID,
+    E1.FirstName  AS Emp1_Name,
+    YEAR(E1.BirthDate) AS Emp1_BirthYear
+FROM employees E1
+JOIN employees E2
+ON YEAR(E1.BirthDate) < YEAR(E2.BirthDate);
 
 -- 3. Find employees whose last name starts with the same letter as another employee
+SELECT DISTINCT
+    E1.EmployeeID,
+    E1.FirstName,
+    E1.LastName
+FROM employees E1
+JOIN employees E2
+ON LEFT(E1.LastName, 1) = LEFT(E2.LastName, 1)
+AND E1.EmployeeID <> E2.EmployeeID;
 
 -- 4. Show pairs of employees where one has handled more orders than the other
+SELECT
+    E1.EmployeeID AS Employee_1,
+    COUNT(O1.OrderID) AS Orders_Handled_By_E1,
+    E2.EmployeeID AS Employee_2,
+    COUNT(O2.OrderID) AS Orders_Handled_By_E2
+FROM employees E1
+LEFT JOIN orders O1
+    ON E1.EmployeeID = O1.EmployeeID
+LEFT JOIN employees E2
+    ON E1.EmployeeID <> E2.EmployeeID
+LEFT JOIN orders O2
+    ON E2.EmployeeID = O2.EmployeeID
+GROUP BY
+    E1.EmployeeID,
+    E2.EmployeeID
+HAVING
+    COUNT(O1.OrderID) > COUNT(O2.OrderID);
 
 -- 5. List employees who are older than at least one other employee
 
