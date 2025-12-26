@@ -54,26 +54,118 @@ HAVING
     COUNT(O1.OrderID) > COUNT(O2.OrderID);
 
 -- 5. List employees who are older than at least one other employee
+SELECT DISTINCT
+    E1.EmployeeID,
+    CONCAT(E1.FirstName, ' ', E1.LastName) AS Emp_Name,
+    E1.BirthDate
+FROM employees E1
+JOIN employees E2
+    ON E1.EmployeeID <> E2.EmployeeID
+   AND E1.BirthDate < E2.BirthDate;
 
 -- 6. Find employees and other employees born in the same month
+SELECT DISTINCT
+    E1.EmployeeID,
+    CONCAT(E1.FirstName, ' ', E1.LastName) AS Employee_Name,
+    MONTH(E1.BirthDate) AS Birth_Month
+FROM employees E1
+JOIN employees E2
+ON E1.EmployeeID <> E2.EmployeeID
+AND MONTH(E1.BirthDate) = MONTH(E2.BirthDate);
 
 -- 7. Show employees whose first name matches another employee’s first name
+SELECT DISTINCT
+    E1.EmployeeID,
+    E1.FirstName,
+    E1.LastName
+FROM employees E1
+JOIN employees E2
+ON E1.EmployeeID <> E2.EmployeeID
+AND E1.FirstName = E2.FirstName;
 
 -- 8. Find customers living in the same city as another customer
+SELECT DISTINCT
+    C1.CustomerID,
+    C1.CustomerName,
+    C1.City
+FROM customers C1
+JOIN customers C2
+ON C1.CustomerID <> C2.CustomerID
+AND C1.City = C2.City;
 
 -- 9. List customers whose postal code matches another customer
+SELECT DISTINCT
+    C1.CustomerID,
+    C1.CustomerName,
+    C1.PostalCode
+FROM customers C1
+JOIN customers C2
+ON C1.CustomerID <> C2.CustomerID
+AND C1.PostalCode = C2.PostalCode;
 
 -- 10. Find suppliers located in the same country as another supplier
+SELECT DISTINCT
+    S1.SupplierID,
+    S1.SupplierName,
+    S1.Country
+FROM suppliers S1
+JOIN suppliers S2
+ON S1.SupplierID <> S2.SupplierID
+AND S1.Country = S2.Country;
 
 -- 11. Show products supplied by the same supplier
+SELECT
+    P1.ProductID,
+    P1.ProductName,
+    P1.SupplierID
+FROM products P1
+JOIN products P2
+ON P1.ProductID <> P2.ProductID
+AND P1.SupplierID = P2.SupplierID;
 
 -- 12. Find products in the same category with higher UnitPrice than another product
+SELECT
+    P1.ProductID,
+    P1.ProductName,
+    P1.CategoryID,
+    P1.UnitPrice
+FROM products P1
+JOIN products P2
+ON P1.ProductID <> P2.ProductID
+AND P1.CategoryID = P2.CategoryID
+AND P1.UnitPrice > P2.UnitPrice;
 
 -- 13. List products that have the same UnitsInStock as another product
+SELECT DISTINCT
+    P1.ProductID,
+    P1.ProductName,
+    P1.UnitsInStock
+FROM products P1
+JOIN products P2
+ON P1.ProductID <> P2.ProductID
+AND P1.UnitsInStock = P2.UnitsInStock;
 
 -- 14. Find orders placed by different customers on the same date
+SELECT DISTINCT
+    O1.OrderID,
+    O1.CustomerID,
+    O1.OrderDate
+FROM orders O1
+JOIN orders O2
+ON O1.OrderID <> O2.OrderID
+AND O1.OrderDate = O2.OrderDate
+AND O1.CustomerID <> O2.CustomerID;
 
 -- 15. Show orders handled by different employees on the same date
+SELECT DISTINCT
+    O1.OrderID,
+    O1.EmployeeID,
+    O1.OrderDate
+FROM orders O1
+JOIN orders O2
+ON O1.OrderID <> O2.OrderID
+AND O1.OrderDate = O2.OrderDate
+AND O1.EmployeeID <> O2.EmployeeID;
 
 -- 16. List customers and other customers from the same city but different countries
 
