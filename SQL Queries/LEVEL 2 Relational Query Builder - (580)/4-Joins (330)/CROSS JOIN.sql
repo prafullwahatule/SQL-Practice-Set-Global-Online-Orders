@@ -161,7 +161,7 @@ SELECT
 FROM customers
 CROSS JOIN categories;
 
--- 23. List all combinations of suppliers and products with UnitsInStock > 0
+-- 23. List all combinations of suppliers and products with UnitsInStock > 0.
 SELECT
 	suppliers.SupplierID,
     products.ProductID
