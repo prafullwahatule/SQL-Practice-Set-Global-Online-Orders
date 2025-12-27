@@ -1,5 +1,5 @@
 -- ===========================================================
--- TABLE: categories
+-- TABLE: categories 
 -- ===========================================================
 -- This table stores information about product categories.
 CREATE TABLE categories (
