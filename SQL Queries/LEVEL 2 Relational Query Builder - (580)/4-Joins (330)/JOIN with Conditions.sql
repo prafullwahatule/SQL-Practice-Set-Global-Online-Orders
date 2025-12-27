@@ -306,11 +306,55 @@ JOIN employees E ON O.EmployeeID = E.EmployeeID
 WHERE C.CustomerID > 50;
 
 -- 46. List products and suppliers where UnitPrice BETWEEN 10 AND 20
+SELECT
+	P.ProductID,
+    P.ProductName,
+    S.SupplierName
+FROM products P
+JOIN suppliers S ON P.SupplierID = S.SupplierID
+WHERE P.UnitPrice BETWEEN 10 AND 20;
 
 -- 47. Show customers and orders where Country NOT IN ('USA','UK')
+SELECT
+    C.CustomerID,
+    C.CustomerName,
+    O.OrderID
+FROM customers C
+JOIN orders O ON C.CustomerID = O.CustomerID
+WHERE C.Country NOT IN ('USA', 'UK');
 
 -- 48. Find order_details, orders, and products where Quantity < 15 AND CategoryID = 2
+SELECT
+    OD.OrderID,
+    OD.ProductID,
+    OD.Quantity,
+    P.ProductName,
+    O.OrderDate
+FROM order_details OD
+JOIN products P ON OD.ProductID = P.ProductID
+JOIN orders O ON OD.OrderID = O.OrderID
+WHERE OD.Quantity < 15
+AND P.CategoryID = 2;
 
 -- 49. List employees and orders where EmployeeID <= 5 OR OrderDate >= '1996-07-25'
+SELECT
+    E.EmployeeID,
+    E.FirstName,
+    O.OrderID,
+    O.OrderDate
+FROM employees E
+JOIN orders O ON E.EmployeeID = O.EmployeeID
+WHERE E.EmployeeID <= 5
+OR O.OrderDate >= '1996-07-25';
 
 -- 50. Show products, suppliers, and categories where UnitsOnOrder > 0 AND CategoryID IN (1,3,5)
+SELECT
+    P.ProductID,
+    P.ProductName,
+    S.SupplierName,
+    C.CategoryName
+FROM products P
+JOIN suppliers S ON P.SupplierID = S.SupplierID
+JOIN categories C ON P.CategoryID = C.CategoryID
+WHERE P.UnitsOnOrder > 0
+AND P.CategoryID IN (1,3,5);
