@@ -48,7 +48,7 @@ CREATE TABLE products (
 -- This table stores information about customers.
 CREATE TABLE customers (
     CustomerID INT PRIMARY KEY AUTO_INCREMENT,          -- Unique identifier for each customer
-    CustomerName VARCHAR(150),           -- Name of the customer/company
+    CustomerName VARCHAR(150),           -- Name of the customer
     ContactName VARCHAR(150),            -- Contact person at the customer
     Address VARCHAR(255),                -- Address of the customer
     City VARCHAR(100),                   -- City
