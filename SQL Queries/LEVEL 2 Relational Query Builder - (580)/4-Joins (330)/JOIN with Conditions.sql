@@ -335,6 +335,8 @@ JOIN products P ON OD.ProductID = P.ProductID
 JOIN orders O ON OD.OrderID = O.OrderID
 WHERE OD.Quantity < 15
 AND P.CategoryID = 2;
+AND P.CategoryID = 2;
+AND P.CategoryID = 2;
 
 -- 49. List employees and orders where EmployeeID <= 5 OR OrderDate >= '1996-07-25'
 SELECT
