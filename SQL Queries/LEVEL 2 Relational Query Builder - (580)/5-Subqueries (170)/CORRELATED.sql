@@ -8,18 +8,83 @@
 
 -- 1. Find products whose UnitPrice is higher than the average UnitPrice 
 --    of other products in the same category.
+SELECT
+    P.ProductID,
+    P.ProductName,
+    P.UnitPrice,
+    C.CategoryName
+FROM products P
+JOIN categories C ON P.CategoryID = C.CategoryID
+WHERE P.UnitPrice > (
+    SELECT
+        AVG(P1.UnitPrice)
+    FROM products P1
+    WHERE P1.CategoryID = P.CategoryID
+);
 
 -- 2. List products whose UnitsInStock is lower than the average UnitsInStock 
 --    of all products from the same supplier.
+SELECT 
+    P.ProductID,
+    P.ProductName,
+    P.UnitsInStock,
+    S.SupplierName
+FROM products P
+JOIN suppliers S ON P.SupplierID = S.SupplierID
+WHERE P.UnitsInStock < (
+    SELECT
+        AVG(P1.UnitsInStock)
+    FROM products P1
+    WHERE P1.SupplierID = P.SupplierID
+);
 
 -- 3. Retrieve products that are the most expensive product within their category.
+SELECT
+    P.ProductID,
+    P.ProductName,
+    C.CategoryName,
+    P.UnitPrice
+FROM products P
+JOIN categories C ON P.CategoryID = C.CategoryID
+WHERE P.UnitPrice = (
+    SELECT
+        MAX(P1.UnitPrice)
+    FROM products P1
+    WHERE P1.CategoryID = P.CategoryID
+);
 
 -- 4. Find products that have a UnitPrice greater than every other product 
 --    from the same supplier.
+SELECT 
+    P.ProductID,
+    P.ProductName,
+    P.UnitPrice,
+    S.SupplierName
+FROM products P
+JOIN suppliers S ON P.SupplierID = S.SupplierID
+WHERE P.UnitPrice = (
+    SELECT
+        MAX(P1.UnitPrice)
+    FROM products P1
+    WHERE P1.SupplierID = P.SupplierID
+);
 
 -- 5. List products where UnitsOnOrder is greater than the total UnitsOnOrder 
 --    of all other products in the same category.
-
+SELECT 
+    P.ProductID,
+    P.ProductName,
+    P.UnitsOnOrder,
+    C.CategoryName
+FROM products P
+JOIN categories C ON P.CategoryID = C.CategoryID
+WHERE P.UnitsOnOrder > (
+    SELECT
+        COALESCE(SUM(P1.UnitsOnOrder), 0)
+    FROM products P1
+    WHERE P1.CategoryID = P.CategoryID
+      AND P1.ProductID <> P.ProductID
+);
 
 -- ============================
 -- SUPPLIERS
