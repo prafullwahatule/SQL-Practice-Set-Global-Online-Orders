@@ -92,18 +92,74 @@ WHERE P.UnitsOnOrder > (
 
 -- 6. Find suppliers who supply more products than the average number 
 --    of products supplied by all suppliers.
+SELECT
+    S.SupplierID,
+    S.SupplierName
+FROM suppliers S
+JOIN products P ON S.SupplierID = P.SupplierID
+GROUP BY S.SupplierID, S.SupplierName
+HAVING COUNT(P.ProductID) > (
+    SELECT
+        AVG(ProductCount)
+    FROM (
+        SELECT
+            COUNT(ProductID) AS ProductCount
+        FROM products
+        GROUP BY SupplierID
+    ) A
+);
 
 -- 7. Retrieve suppliers who supply at least one product priced higher 
 --    than the average UnitPrice of that product’s category.
+SELECT DISTINCT
+    S.SupplierID,
+    S.SupplierName
+FROM suppliers S
+JOIN products P 
+    ON S.SupplierID = P.SupplierID
+WHERE P.UnitPrice > (
+    SELECT
+        AVG(P2.UnitPrice)
+    FROM products P2
+    WHERE P2.CategoryID = P.CategoryID
+);
 
 -- 8. List suppliers who supply products with UnitsInStock below the 
 --    average UnitsInStock within each category.
+SELECT DISTINCT s.SupplierID, s.SupplierName
+FROM suppliers s
+JOIN products p 
+    ON s.SupplierID = p.SupplierID
+WHERE p.UnitsInStock < (
+    SELECT AVG(p2.UnitsInStock)
+    FROM products p2
+    WHERE p2.CategoryID = p.CategoryID
+);
 
 -- 9. Show suppliers whose average product price is higher than the 
 --    average price of products for all suppliers.
+SELECT s.SupplierID, s.SupplierName
+FROM suppliers s
+JOIN products p 
+    ON s.SupplierID = p.SupplierID
+GROUP BY s.SupplierID, s.SupplierName
+HAVING AVG(p.UnitPrice) > (
+    SELECT AVG(UnitPrice)
+    FROM products
+);
 
 -- 10. Find suppliers that supply the cheapest product in their country.
-
+SELECT DISTINCT s.SupplierID, s.SupplierName, s.Country
+FROM suppliers s
+JOIN products p 
+    ON s.SupplierID = p.SupplierID
+WHERE p.UnitPrice = (
+    SELECT MIN(p2.UnitPrice)
+    FROM products p2
+    JOIN suppliers s2 
+        ON p2.SupplierID = s2.SupplierID
+    WHERE s2.Country = s.Country
+);
 
 -- ============================
 -- CUSTOMERS
