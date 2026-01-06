@@ -10,17 +10,53 @@
 
 -- 1. Find products whose CategoryID is IN the list of categories 
 --    that have more than 1 product.
+SELECT *
+FROM products
+WHERE CategoryID IN (
+    SELECT CategoryID
+    FROM products
+    GROUP BY CategoryID
+    HAVING COUNT(*) > 1
+);
 
 -- 2. List products whose SupplierID is IN suppliers located in Japan.
+SELECT *
+FROM products
+WHERE SupplierID IN (
+    SELECT SupplierID
+    FROM suppliers
+    WHERE Country = 'Japan'
+);
 
 -- 3. Retrieve products whose ProductID is IN the list of ProductIDs 
 --    in order_details with Quantity > 30.
+SELECT *
+FROM products
+WHERE ProductID IN (
+    SELECT DISTINCT ProductID
+    FROM order_details
+    WHERE Quantity > 30
+);
 
 -- 4. Find products whose UnitPrice is greater than ANY UnitPrice 
 --    of products in CategoryID = 1.
+SELECT *
+FROM products
+WHERE UnitPrice > ANY (
+    SELECT UnitPrice
+    FROM products
+    WHERE CategoryID = 1
+);
 
 -- 5. Find products whose UnitPrice is greater than ALL UnitPrices 
 --    in CategoryID = 2.
+SELECT *
+FROM products
+WHERE UnitPrice > ALL (
+    SELECT UnitPrice
+    FROM products
+    WHERE CategoryID = 2
+);
 
 -- 6. Show products whose ProductID is NOT IN the order_details table 
 --    (never ordered products).
