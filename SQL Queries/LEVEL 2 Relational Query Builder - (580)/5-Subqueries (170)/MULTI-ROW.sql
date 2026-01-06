@@ -60,18 +60,53 @@ WHERE UnitPrice > ALL (
 
 -- 6. Show products whose ProductID is NOT IN the order_details table 
 --    (never ordered products).
-
+SELECT *
+FROM products
+WHERE ProductID NOT IN (
+    SELECT ProductID
+    FROM order_details
+    WHERE ProductID IS NOT NULL
+);
+    
 -- 7. Retrieve products whose UnitPrice is less than ANY UnitPrice 
 --    in CategoryID = 5.
+SELECT *
+FROM products
+WHERE UnitPrice < ANY (
+    SELECT UnitPrice
+    FROM products
+    WHERE CategoryID = 5
+);
 
 -- 8. Retrieve products whose UnitsInStock is less than ANY UnitsInStock 
 --    of discontinued products.
+SELECT * 
+FROM products
+WHERE UnitsInStock < ANY (
+	SELECT
+		UnitsInStock
+    FROM products
+    WHERE Discontinued = 1
+);
 
 -- 9. Find categories whose CategoryID is IN categories having products out of stock.
+SELECT *
+FROM categories
+WHERE CategoryID IN (
+    SELECT CategoryID
+    FROM products
+    WHERE UnitsInStock = 0
+);
 
 -- 10. Show categories whose CategoryID is IN the categories 
 --     used by discontinued products.
-
+SELECT *
+FROM categories
+WHERE CategoryID IN (
+    SELECT CategoryID
+    FROM products
+    WHERE Discontinued = 1
+);
 
 -- ============================
 -- CUSTOMERS
