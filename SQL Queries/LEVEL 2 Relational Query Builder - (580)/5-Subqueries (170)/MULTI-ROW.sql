@@ -101,30 +101,72 @@ WHERE CategoryID IN (
 -- 10. Show categories whose CategoryID is IN the categories 
 --     used by discontinued products.
 SELECT *
-FROM categories
-WHERE CategoryID IN (
-    SELECT CategoryID
-    FROM products
-    WHERE Discontinued = 1
+FROM customers
+WHERE CustomerID IN (
+    SELECT CustomerID
+    FROM orders
+    WHERE OrderDate >= '1996-07-01'
+      AND OrderDate < '1996-08-01'
 );
 
--- ============================
--- CUSTOMERS
+
+-- ============================ 
+-- CUSTOMERS -- 
 -- ============================
 
 -- 11. List customers whose CustomerID is IN the set of customers 
---     who placed orders in July 1996.
+-- who placed orders in July 1996.
+SELECT *
+FROM customers
+WHERE CustomerID IN (
+    SELECT CustomerID
+    FROM orders
+    WHERE OrderDate >= '1996-07-01'
+      AND OrderDate < '1996-08-01'
+);
 
 -- 12. Show orders where CustomerID is IN the group of customers from Germany.
+SELECT *
+FROM orders
+WHERE CustomerID IN (
+    SELECT CustomerID
+    FROM customers
+    WHERE Country = 'Germany'
+);
 
 -- 13. Find customers whose CustomerID is IN the list of customers 
 --     who placed orders shipped by 'Federal Shipping'.
+SELECT *
+FROM customers
+WHERE CustomerID IN (
+    SELECT O.CustomerID
+    FROM orders O
+    JOIN shippers S
+        ON O.ShipperID = S.ShipperID
+    WHERE S.ShipperName = 'Federal Shipping'
+);
 
 -- 14. Find customers whose CustomerID is IN customers with PostalCode 
 --     starting with '5'.
+SELECT *
+FROM customers
+WHERE CustomerID IN (
+    SELECT CustomerID
+    FROM customers
+    WHERE PostalCode LIKE '5%'
+);
 
 -- 15. List customers whose Country is IN the countries of suppliers 
 --     who supply CategoryID = 1 products.
+SELECT *
+FROM customers
+WHERE Country IN (
+    SELECT DISTINCT S.Country
+    FROM suppliers S
+    JOIN products P
+        ON S.SupplierID = P.SupplierID
+    WHERE P.CategoryID = 1
+);
 
 
 -- ============================
