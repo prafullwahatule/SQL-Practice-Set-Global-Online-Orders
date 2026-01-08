@@ -175,14 +175,33 @@ WHERE Country IN (
 
 -- 16. Find employees whose EmployeeID is IN the list of employees 
 --     who handled orders shipped by ShipperID = 3.
+SELECT *
+FROM employees
+WHERE EmployeeID IN (
+    SELECT EmployeeID
+    FROM orders
+    WHERE ShipperID = 3
+);
 
 -- 17. Show employees whose EmployeeID is IN the list of employees 
 --     who handled orders for CustomerID = 20.
+SELECT *
+FROM employees 
+WHERE EmployeeID IN (
+	SELECT
+		EmployeeID
+	FROM orders
+    WHERE CustomerID = 20
+);
 
 -- 18. Retrieve employees whose EmployeeID is IN employees 
 --     with birthdates earlier than ANY customer registration date (if exists).
 
 -- 19. Find employees where EmployeeID is IN employees who were born in the 1950s.
+SELECT *
+FROM employees
+WHERE BirthDate >= '1950-01-01'
+  AND BirthDate < '1960-01-01';
 
 
 -- ============================
