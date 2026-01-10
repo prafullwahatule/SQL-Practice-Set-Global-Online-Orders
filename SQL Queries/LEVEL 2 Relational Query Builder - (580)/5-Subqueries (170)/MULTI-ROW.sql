@@ -209,6 +209,14 @@ WHERE BirthDate >= '1950-01-01'
 -- ============================
 
 -- 20. Show orders whose OrderID is IN the top 5 earliest OrderIDs.
+SELECT o.*
+FROM orders o
+JOIN (
+    SELECT OrderID
+    FROM orders
+    ORDER BY OrderDate ASC
+    LIMIT 5
+) t ON o.OrderID = t.OrderID;
 
 -- 21. Find orders whose ShipperID is IN the list of shippers used by EmployeeID = 4.
 
