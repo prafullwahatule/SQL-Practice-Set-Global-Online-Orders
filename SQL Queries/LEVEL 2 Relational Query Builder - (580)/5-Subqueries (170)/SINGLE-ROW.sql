@@ -9,24 +9,124 @@
 -- ============================
 
 -- 1. Find the product whose UnitPrice is higher than the UnitPrice of ProductID = 1.
+SELECT 
+    ProductID,
+    ProductName,
+    UnitPrice
+FROM products
+WHERE UnitPrice > (
+    SELECT UnitPrice
+    FROM products
+    WHERE ProductID = 1
+);
+
 
 -- 4. Show products with UnitsInStock greater than the UnitsInStock of 'Chai'.
+SELECT
+    ProductID,
+    ProductName,
+    UnitsInStock
+FROM products
+WHERE UnitsInStock > (
+    SELECT UnitsInStock
+    FROM products
+    WHERE ProductName = 'Chai'
+);
+
 
 -- 7. Retrieve products whose UnitPrice is less than the minimum UnitPrice of CategoryID = 2.
+SELECT
+    ProductID,
+    ProductName,
+    UnitPrice
+FROM products
+WHERE UnitPrice < (
+    SELECT MIN(UnitPrice)
+    FROM products
+    WHERE CategoryID = 2
+);
+
 
 -- 10. List products that have a UnitPrice equal to the average UnitPrice of all products.
+SELECT
+    ProductID,
+    ProductName,
+    UnitPrice
+FROM products
+WHERE UnitPrice = (
+    SELECT AVG(UnitPrice)
+    FROM products
+);
+
 
 -- 15. Show products in the same category as the cheapest product.
+SELECT
+    ProductName,
+    CategoryID
+FROM products
+WHERE CategoryID = (
+    SELECT CategoryID
+    FROM products
+    WHERE UnitPrice = (
+        SELECT MIN(UnitPrice)
+        FROM products
+    )
+    LIMIT 1
+);
+
 
 -- 18. Find products with UnitsInStock less than the UnitsInStock of the most expensive product.
+SELECT *
+FROM products
+WHERE UnitsInStock < (
+    SELECT UnitsInStock
+    FROM products
+    WHERE UnitPrice = (
+        SELECT MAX(UnitPrice)
+        FROM products
+    )
+);
+
 
 -- 21. List products whose ReorderLevel is higher than the ReorderLevel of ProductID = 3.
+SELECT *
+FROM products
+WHERE ReorderLevel > (
+    SELECT ReorderLevel
+    FROM products
+    WHERE ProductID = 3
+);
+
 
 -- 23. Show products priced lower than the average price of CategoryID = 1.
+SELECT *
+FROM products
+WHERE UnitPrice < (
+    SELECT AVG(UnitPrice)
+    FROM products
+    WHERE CategoryID = 1
+);
+
 
 -- 25. List products with UnitsInStock equal to the maximum UnitsInStock of any discontinued product.
+SELECT *
+FROM products 
+WHERE UnitsInStock = (
+    SELECT MAX(UnitsInStock)
+    FROM products
+    WHERE Discontinued = 1
+);
+
 
 -- 27. Retrieve products whose UnitPrice is more than the UnitPrice of 'Chang'.
+SELECT *
+FROM products
+WHERE UnitPrice > (
+    SELECT UnitPrice
+    FROM products
+    WHERE ProductName = 'Chang'
+);
+
 
 
 -- ============================
