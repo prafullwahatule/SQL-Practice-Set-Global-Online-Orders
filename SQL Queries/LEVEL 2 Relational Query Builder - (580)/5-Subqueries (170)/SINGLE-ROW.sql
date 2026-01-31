@@ -202,12 +202,44 @@ WHERE Country = (
 -- ============================
 
 -- 3. Find employees born earlier than the employee with EmployeeID = 5.
+SELECT *
+FROM employees
+WHERE BirthDate < (
+    SELECT BirthDate
+    FROM employees
+    WHERE EmployeeID = 5
+);
 
--- 12. Show employees whose HireDate is after the HireDate of EmployeeID = 3.
+
+-- 12. Show employees whose BirthDate is after the BirthDate of EmployeeID = 3.
+SELECT *
+FROM employees
+WHERE BirthDate > (
+	SELECT 
+		BirthDate
+	FROM employees
+    WHERE EmployeeID = 3
+);
+
 
 -- 22. Find orders handled by the employee with the lowest EmployeeID.
+SELECT *
+FROM orders
+WHERE EmployeeID = (
+    SELECT MIN(EmployeeID)
+    FROM orders
+);
+
 
 -- 28. List employees whose LastName comes alphabetically after the LastName of EmployeeID = 2.
+SELECT *
+FROM employees
+WHERE LastName > (
+	SELECT 
+		LastName
+	FROM employees
+    WHERE EmployeeID = 2
+);
 
 
 -- ============================
