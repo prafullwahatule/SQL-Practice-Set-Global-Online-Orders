@@ -325,6 +325,27 @@ WHERE EXISTS (
 
 -- 30. Show order_details whose Quantity is greater than ALL quantities 
 --     of OrderID = 10248.
+SELECT *
+FROM order_details
+WHERE Quantity > ALL (
+    SELECT Quantity
+    FROM order_details
+    WHERE OrderID = 10248
+);
 
 -- 31. Retrieve order_details where ProductID is IN products supplied by 
 --     suppliers located in the country with the most suppliers.
+SELECT *
+FROM order_details
+WHERE ProductID IN (
+    SELECT p.ProductID
+    FROM products p
+    JOIN suppliers s ON p.SupplierID = s.SupplierID
+    WHERE s.Country = (
+        SELECT Country
+        FROM suppliers
+        GROUP BY Country
+        ORDER BY COUNT(*) DESC
+        LIMIT 1
+    )
+);
