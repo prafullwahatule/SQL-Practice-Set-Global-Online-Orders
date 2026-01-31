@@ -134,14 +134,67 @@ WHERE UnitPrice > (
 -- ============================
 
 -- 2. List customers whose CustomerID is greater than the CustomerID of the most recent order.
+SELECT *
+FROM customers
+WHERE CustomerID > (
+    SELECT CustomerID
+    FROM orders
+    WHERE OrderDate = (
+        SELECT MAX(OrderDate)
+        FROM orders
+    )
+    LIMIT 1
+);
+
 
 -- 8. Show customers living in the same city as the customer with CustomerID = 10.
+SELECT *
+FROM customers
+WHERE City = (
+	SELECT 
+		City
+	FROM customers
+    WHERE CustomerID = 10
+);
+
 
 -- 13. Retrieve customers whose PostalCode matches the PostalCode of CustomerID = 5.
+SELECT *
+FROM customers
+WHERE PostalCode = (
+	SELECT
+		PostalCode
+	FROM customers
+    WHERE CustomerID = 5
+);
+
 
 -- 19. Show customers from the same Country as the company with highest CustomerID.
+SELECT *
+FROM customers
+WHERE Country = (
+	SELECT
+		Country
+	FROM customers
+    WHERE CustomerID = (
+		SELECT 
+			MAX(CustomerID)
+		FROM customers
+    )
+);
+
 
 -- 29. Find customers whose Country matches the Country of the customer with the earliest CustomerID.
+SELECT *
+FROM customers
+WHERE Country = (
+    SELECT Country
+    FROM customers
+    WHERE CustomerID = (
+        SELECT MIN(CustomerID)
+        FROM customers
+    )
+);
 
 
 -- ============================
