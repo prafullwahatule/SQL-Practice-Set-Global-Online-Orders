@@ -219,15 +219,55 @@ JOIN (
 ) t ON o.OrderID = t.OrderID;
 
 -- 21. Find orders whose ShipperID is IN the list of shippers used by EmployeeID = 4.
+SELECT *
+FROM orders
+WHERE ShipperID IN (
+    SELECT DISTINCT ShipperID
+    FROM orders
+    WHERE EmployeeID = 4
+); 
 
 -- 22. Find orders whose OrderDate is earlier than ALL order dates of CustomerID = 34.
+SELECT *
+FROM orders
+WHERE OrderDate < ALL (
+		SELECT
+			OrderDate
+		WHERE CustomerID = 34
+);
 
 -- 23. Find orders where CustomerID is IN customers who placed orders 
 --     shipped by 'Federal Shipping'.
+SELECT *
+FROM orders
+WHERE CustomerID IN (
+    SELECT DISTINCT CustomerID
+    FROM orders
+    WHERE ShipperID = (
+        SELECT ShipperID
+        FROM shippers
+        WHERE ShipperName = 'Federal Shipping'
+    )
+);
+
 
 -- 24. Find orders whose CustomerID is IN customers with PostalCode starting with '5'.
+SELECT *
+FROM orders
+WHERE CustomerID IN (
+    SELECT CustomerID
+    FROM customers
+    WHERE PostalCode LIKE '5%'
+);
 
 -- 25. Retrieve orders whose ShipperID is IN orders placed after '1996-07-20'.
+SELECT *
+FROM orders
+WHERE ShipperID IN (
+    SELECT DISTINCT ShipperID
+    FROM orders
+    WHERE OrderDate > '1996-07-20'
+);
 
 
 -- ============================
