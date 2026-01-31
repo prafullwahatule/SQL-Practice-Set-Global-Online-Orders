@@ -205,7 +205,7 @@ WHERE BirthDate >= '1950-01-01'
 
 
 -- ============================
--- ORDERS
+-- ORDERS   
 -- ============================
 
 -- 20. Show orders whose OrderID is IN the top 5 earliest OrderIDs.
@@ -276,15 +276,47 @@ WHERE ShipperID IN (
 
 -- 26. List suppliers whose SupplierID is IN the SupplierIDs 
 --     of products priced above 20.
+SELECT *
+FROM suppliers
+WHERE SupplierID IN (
+		SELECT DISTINCT
+			SupplierID
+		FROM products
+        WHERE UnitPrice > 20
+);
 
 -- 27. Show suppliers whose country is IN the customer countries 
 --     from which orders were placed.
+SELECT *
+FROM suppliers
+WHERE Country IN (
+    SELECT DISTINCT c.Country
+    FROM customers c
+    JOIN orders o ON c.CustomerID = o.CustomerID
+);
 
 -- 28. Show suppliers whose SupplierID is IN the SupplierIDs 
 --     of the cheapest products.
+SELECT *
+FROM suppliers
+WHERE SupplierID IN (
+    SELECT SupplierID
+    FROM products
+    WHERE UnitPrice = (
+        SELECT MIN(UnitPrice)
+        FROM products
+    )
+);
 
 -- 29. List suppliers whose Country is IN the cities of customers 
 --     (if applicable).
+SELECT *
+FROM suppliers s
+WHERE EXISTS (
+    SELECT 1
+    FROM customers c
+    WHERE c.City = s.Country
+);
 
 
 -- ============================
